@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <title>Just Vote</title>
+        <meta name="description" content="give address to prove voting information">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Vineeth Sai">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <link rel="icon" type="image/png" href="img/vote.png"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        
+        <!-- fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
+        
+        <!--my CSS-->
+        <link rel="stylesheet" href="css/index.css">
+        <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    </head>
+
+    <body>
+
+        <header>
+            <a href="#" id="logo">Just Vote</a>
+                <nav>
+                    <a href="#" id="menu-icon"></a>
+                        <ul>
+                            <li><a href="#" class="current">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                </nav>  
+        </header>
+        <main>
+            <div class="row centered">
+                    <div class="container-fluid centered">
+                                <div class="input-group input-group-lg col-sm-8 col-sm-offset-2 centered">
+                                    <input type="text" class="form-control" placeholder="Enter your address to find who represents you" id="address" name="address" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="submit" id="address-search"><i class='fa fa-search'></i> <span class='hidden-xs hidden-sm'>Search</span></button>
+                                        <button class="btn btn-default" type="submit" id="find-me"><i class='fa fa-crosshairs'></i> <span class='hidden-xs hidden-sm'>Find me</span> </button>
+                                    </span>
+                                </div>
+                                <div class='col-sm-8 col-sm-offset-2 filter_level'>
+                                    <br /><p class='text-center'>
+                                        Show level of government:
+                                        <label>
+                                            <input type="checkbox" id="show_local_results" value="Local"> Local
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="show_county_results" value="County"> County
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="show_state_results" value="State"> State
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="show_federal_results" value="Federal"> Federal
+                                        </label>
+                                    </p>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+            </div>
+            
+        </main>
+    </body>
+            
+</html>
