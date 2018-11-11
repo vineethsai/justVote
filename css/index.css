@@ -155,27 +155,32 @@ p {
 
 }
 
-table
-{
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-	border-collapse: collapse;
-	padding: 400px;
-	table-layout: auto;
+table 
+{ 
+	width: 100%; 
+	/* bottom: 1000px; */
+	border-collapse: collapse; 
 }
 
-th, td
-{
-    padding: 5px;
-	border-bottom: 1px solid #d3d3d3;
-	white-space: pre;
+
+th
+{ 
+	background: #333; 
+	color: white; 
+	font-weight: bold; 
+}
+
+td, th 
+{ 
+	padding: 6px;
+	border: 1px solid #ccc; 
+	text-align: left; 
 }
 
 table thead tr th
 {
     height: 2rem;
-    text-align: left;
+    /* text-align: left; */
     color: #1db954;
 	background-color: #d3d3d3;
 	text-shadow: 1px 1px 0 #000;
@@ -199,7 +204,9 @@ tbody tr:hover
     background-color: #2262AD;
 } */
 
-@media only screen and (max-width : 640px) {
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
 
 	header {
 
@@ -250,7 +257,7 @@ tbody tr:hover
 	table, thead, tbody, th, td, tr { 
 		display: block; 
 	}
-
+	
 	/* Hide table headers (but not display: none;, for accessibility) */
 	thead tr { 
 		display: none;
@@ -259,10 +266,11 @@ tbody tr:hover
 	tr { border: 1px solid #ccc; }
 	
 	td { 
+		color: #1db954;
 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
-		position: fixed;
+		position: relative;
 		padding-left: 50%; 
 	}
 	
@@ -284,5 +292,5 @@ tbody tr:hover
 	td:nth-of-type(2):before { content: "Photo"; }
 	td:nth-of-type(3):before { content: "Office"; }
 	td:nth-of-type(4):before { content: "Party"; }
-	td:nth-of-type(4):before { content: "Website"; }
+	td:nth-of-type(5):before { content: "Website"; }
 }
