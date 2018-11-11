@@ -155,6 +155,50 @@ p {
 
 }
 
+table
+{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+	border-collapse: collapse;
+	padding: 400px;
+	table-layout: auto;
+}
+
+th, td
+{
+    padding: 5px;
+	border-bottom: 1px solid #d3d3d3;
+	white-space: pre;
+}
+
+table thead tr th
+{
+    height: 2rem;
+    text-align: left;
+    color: #1db954;
+	background-color: #d3d3d3;
+	text-shadow: 1px 1px 0 #000;
+}
+
+img
+{
+	background-image: url('../img/blank-person.jpg');
+    width: 100px;
+	height: 100px;
+	
+}
+
+tbody tr:hover
+{
+    background-color: rgb(163, 219, 86);
+}
+
+/* table tbody tr
+{
+    background-color: #2262AD;
+} */
+
 @media only screen and (max-width : 640px) {
 
 	header {
@@ -201,5 +245,44 @@ p {
     {
         width: 200px;
         font-size: 100%;
-    }
+	}
+	
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		display: none;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: fixed;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Official"; }
+	td:nth-of-type(2):before { content: "Photo"; }
+	td:nth-of-type(3):before { content: "Office"; }
+	td:nth-of-type(4):before { content: "Party"; }
+	td:nth-of-type(4):before { content: "Website"; }
 }

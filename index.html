@@ -1,157 +1,117 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <title>Just Vote</title>
-        <meta name="description" content="give address to prove voting information">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Vineeth Sai">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-        <link rel="icon" type="image/png" href="img/vote.png"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-        
-        <!-- fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
-        
-        <!--my CSS-->
-        <link rel="stylesheet" href="css/index.css">
-        <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    
-    
-        <script>
-                /**
-                 * Build and execute request to look up voter info for provided address.
-                 * @param {string} address Address for which to fetch voter info.
-                 * @param {function(Object)} callback Function which takes the
-                 *     response object as a parameter.
-                 */
-                 function lookup(address, callback) {
-                 /**
-                   * Election ID for which to fetch voter info.
-                   * @type {number}
-                   */
-                  var electionId = 2000;
-           
-                  /**
-                   * Request object for given parameters.
-                   * @type {gapi.client.HttpRequest}
-                   */
-                  var req = gapi.client.request({
-                      'path' : '/civicinfo/v2/voterinfo',
-                      'params' : {'electionId' : electionId, 'address' : address}
-                  });
-                 req.execute(callback);
-                }
-          
-                /**
-                 * Render results in the DOM.
-                 * @param {Object} response Response object returned by the API.
-                 * @param {Object} rawResponse Raw response from the API.
-                 */
-                function renderResults(response, rawResponse) {
-                  var el = document.getElementById('results');
-                  if (!response || response.error) {
-                    el.appendChild(document.createTextNode(
-                        'Error while trying to fetch polling place'));
-                    return;
-                  }
-                  var normalizedAddress = response.normalizedInput.line1 + ' ' +
-                      response.normalizedInput.city + ', ' +
-                      response.normalizedInput.state + ' ' +
-                      response.normalizedInput.zip;
-                  if (response.pollingLocations.length > 0) {
-                    var pollingLocation = response.pollingLocations[0].address;
-                    var pollingAddress = pollingLocation.locationName + ', ' +
-                        pollingLocation.line1 + ' ' +
-                        pollingLocation.city + ', ' +
-                        pollingLocation.state + ' ' +
-                        pollingLocation.zip;
-                    var normEl = document.createElement('strong');
-                    normEl.appendChild(document.createTextNode(
-                        'Polling place for ' + normalizedAddress + ': '));
-                    el.appendChild(normEl);
-                    el.appendChild(document.createTextNode(pollingAddress));
-                  } else {
-                    el.appendChild(document.createTextNode(
-                        'Could not find polling place for ' + normalizedAddress));
-                  }
-                }
-          
-                /**
-                 * Initialize the API client and make a request.
-                 */
-                function load() {
-                  gapi.client.setApiKey('AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw');
-                  lookup('1263 Pacific Ave. Kansas City KS', renderResults);
-                }
-              </script>
-              <script src="https://apis.google.com/js/client.js?onload=load"></script>
-    
-    
-    </head>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Just Vote</title>
+    <meta name="description" content="give address to prove voting information">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Vineeth Sai">
 
-    <body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-        <header>
-            <a href="#" id="logo"></a>
-                <nav>
-                    <a href="#" id="menu-icon"></a>
-                        <ul>
-                            <li><a href="#" class="current">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                </nav>  
-        </header>
-        <main>
-            <section>
-                    <div class="cent text-center centered">
-                            <h1>Just Vote</h1>
-                            <p>
-                                    Enter your address to find and contact your federal, state, county and local elected representatives
-                            </p>
+    <link rel="icon" type="image/png" href="img/vote.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+
+    <!-- fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
+
+    <!--my CSS-->
+    <link rel="stylesheet" href="css/index.css">
+    <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw&libraries=places&callback=initMap"
+        async defer></script>
+
+</head>
+
+<body>
+
+    <header>
+        <a href="#" id="logo"></a>
+        <nav>
+            <a href="#" id="menu-icon"></a>
+            <ul>
+                <li><a href="#" class="current">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="cent text-center centered">
+                <h1>Just Vote</h1>
+                <p>
+                    Enter your address to find and contact your federal, state, county and local elected representatives
+                </p>
+            </div>
+            <div class="row centered">
+                <div class="container-fluid centered">
+                    <div class="cent input-group input-group-lg col-sm-8 col-sm-offset-2 centered">
+                        <input type="text" class="form-control" placeholder="Enter your address to find who represents you" id="address" name="address">
+                        <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit" id="address-search"><i class='fa fa-search'></i> <span class='hidden-xs hidden-sm'>Search</span></button>
+                        </span>
+                    </div>
+                    <div class='cent col-sm-8 col-sm-offset-2 filter_level'>
+                        <br />
+                        <p class='text-center'>
+                            Show level of government:
+                            <label>
+                                <input type="checkbox" id="show_local_results" value="Local"> Local
+                            </label>
+                            <label>
+                                <input type="checkbox" id="show_county_results" value="County"> County
+                            </label>
+                            <label>
+                                <input type="checkbox" id="show_state_results" value="State"> State
+                            </label>
+                            <label>
+                                <input type="checkbox" id="show_federal_results" value="Federal"> Federal
+                            </label>
+                        </p>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            </div>
+            <div style="overflow-x:auto;">
+            <div class="cent centered row">
+                <div class='container-fluid centered'>
+                        <div id='col-sm-8 col-sm-offset-2 centered'>
+                            <br />
+                            <table id="local-results" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Official</th>
+                                        <th>Photo</th>
+                                        <th>Office</th>
+                                        <th>Party</th>
+                                        <th>Website</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body"></tbody>
+                            </table>
                         </div>
-                        <div class="row centered">
-                                <div class="container-fluid centered">
-                                            <div class="cent input-group input-group-lg col-sm-8 col-sm-offset-2 centered">
-                                                <input type="text" class="form-control" placeholder="Enter your address to find who represents you" id="address" name="address" >
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-info" type="submit" id="address-search"><i class='fa fa-search'></i> <span class='hidden-xs hidden-sm'>Search</span></button>
-                                                    <button class="btn btn-default" type="submit" id="find-me"><i class='fa fa-crosshairs'></i> <span class='hidden-xs hidden-sm'>Find me</span> </button>
-                                                </span>
-                                            </div>
-                                            <div class='cent col-sm-8 col-sm-offset-2 filter_level'>
-                                                <br /><p class='text-center'>
-                                                    Show level of government:
-                                                    <label>
-                                                        <input type="checkbox" id="show_local_results" value="Local"> Local
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" id="show_county_results" value="County"> County
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" id="show_state_results" value="State"> State
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" id="show_federal_results" value="Federal"> Federal
-                                                    </label>
-                                                </p>
-                                            </div>
-                                            <br />
-                                        </div>
-                                    </div>
-                        </div>
-                        <div id="results">
-                        <!-- data will be added here -->
-                        </div>
-            </section>
-           
-            
-        </main>
-    </body>
-            
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <!-- Load jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
+
+    <!-- Load JavaScript libraries here -->
+    <script src="js/index.js"></script>
+    <div id="names"></div>
+</body>
+
 </html>
