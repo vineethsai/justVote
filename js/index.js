@@ -244,3 +244,7 @@ addy.addEventListener('keypress', function(event) {
         lookup("'"+$('#address').val()+"'", renderResults);
     }
 });
+
+jQuery(document).ready(function($) {
+    initMap();
+});
