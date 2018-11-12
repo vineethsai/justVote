@@ -161,11 +161,14 @@ table
 	/* bottom: 1000px; */
 	border-collapse: collapse; 
 }
-
+thead
+{
+	background-color: #ccc;
+}
 
 th
 { 
-	background: #333; 
+	/* background: #333;  */
 	color: white; 
 	font-weight: bold; 
 }
@@ -182,7 +185,7 @@ table thead tr th
     height: 2rem;
     /* text-align: left; */
     color: #1db954;
-	background-color: #d3d3d3;
+	/* background-color: #d3d3d3; */
 	text-shadow: 1px 1px 0 #000;
 }
 
@@ -204,6 +207,26 @@ tbody tr:hover
     background-color: #2262AD;
 } */
 
+footer p
+{
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	height:30px;
+	width:100%;
+	/* background:#999; */
+	text-align: right;
+	color: white;
+	font-size: 0.7em;
+	line-height: 70px;
+	text-transform: capitalize;
+	letter-spacing: 1px;
+}
+
+#submitbtnnn
+{
+	display: none;
+}
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -260,13 +283,14 @@ only screen and (max-width: 760px),
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
 	thead tr { 
-		display: none;
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
 	}
 	
 	tr { border: 1px solid #ccc; }
 	
 	td { 
-		color: #1db954;
 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 

@@ -24,8 +24,7 @@
 
     <script src="https://apis.google.com/js/client.js?onload=load"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw&libraries=places&callback=initMap"
-        async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw&libraries=places&callback=initMap" async defer></script>
 
 </head>
 
@@ -53,54 +52,53 @@
             <div class="row centered">
                 <div class="container-fluid centered">
                     <div class="cent input-group input-group-lg col-sm-8 col-sm-offset-2 centered">
+
                         <input type="text" class="form-control" placeholder="Enter your address to find who represents you" id="address" name="address">
+
                         <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit" id="address-search"><i class='fa fa-search'></i> <span class='hidden-xs hidden-sm'>Search</span></button>
-                        </span>
+                                        <button class="btn btn-primary" type="submit" id="address-search"><i class='fa fa-search'></i>Search</button>
+                                </span>
+
                     </div>
                     <div class='cent col-sm-8 col-sm-offset-2 filter_level'>
                         <br />
-                        <p class='text-center'>
+                        <form class='text-center' id="checkbox">
                             Show level of government:
                             <label>
-                                <input type="checkbox" id="show_local_results" value="Local"> Local
+                                <input type="checkbox" id="show_local_results"> Local
                             </label>
                             <label>
-                                <input type="checkbox" id="show_county_results" value="County"> County
+                                <input type="checkbox" id="show_county_results"> County
                             </label>
                             <label>
-                                <input type="checkbox" id="show_state_results" value="State"> State
+                                <input type="checkbox" id="show_state_results"> State
                             </label>
                             <label>
-                                <input type="checkbox" id="show_federal_results" value="Federal"> Federal
+                                <input type="checkbox" id="show_federal_results"> Federal
                             </label>
-                        </p>
+                            <br>
+                            <!-- <label>
+                                <input type="checkbox" id="all" > Check All
+                            </label> -->
+                        </form>
                     </div>
                     <br />
                 </div>
             </div>
-            </div>
-            <div style="overflow-x:auto;">
-            <div class="cent centered row">
-                <div class='container-fluid centered'>
-                        <div id='col-sm-8 col-sm-offset-2 centered'>
-                            <br />
-                            <table id="local-results" class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Official</th>
-                                        <th>Photo</th>
-                                        <th>Office</th>
-                                        <th>Party</th>
-                                        <th>Website</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="body"></tbody>
-                            </table>
-                        </div>
-                </div>
-            </div>
-            </div>
+            <table id="local-results" class="table">
+                <thead>
+                    <tr>
+                        <th>Official</th>
+                        <th>Photo</th>
+                        <th>Office</th>
+                        <th>Party</th>
+                        <th>Website</th>
+                    </tr>
+                </thead>
+                <tbody id="body">
+
+                </tbody>
+            </table>
         </section>
     </main>
     <!-- Load jQuery library -->
@@ -111,7 +109,11 @@
 
     <!-- Load JavaScript libraries here -->
     <script src="js/index.js"></script>
-    <div id="names"></div>
+    <footer class="row">
+        <div class="copyright">
+            <p>&copy; 2018 - Vineeth Sai Narajala | Powered by:<a style="color:white" href="https://developers.google.com/civic-information/">Google Civic Information API</a> </p>
+        </div>
+    </footer>
 </body>
 
 </html>

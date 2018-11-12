@@ -1,3 +1,8 @@
+var federal_pattern = "ocd-division/country:us";
+var state_pattern = /ocd-division\/country:us\/state:(\D{2}$)/;
+var cd_pattern = /ocd-division\/country:us\/state:(\D{2})\/cd:/;
+var county_pattern = /ocd-division\/country:us\/state:\D{2}\/county:\D+/;
+var local_pattern = /ocd-division\/country:us\/state:\D{2}\/place:\D+/;
 // ____________________________________________________
 
 /**
@@ -30,66 +35,91 @@ req.execute(callback);
 * @param {Object} rawResponse Raw response from the API.
 */
 function renderResults(response, rawResponse) {
+    var check_local;
 
-    var social_icon_lookup = {
-        'YouTube': 'youtube',
-        'Facebook': 'facebook',
-        'Twitter': 'twitter',
-        'GooglePlus': 'google-plus'
-    };
-    
-    var social_link_lookup = {
-        'YouTube': 'https://www.youtube.com/user/',
-        'Facebook': 'https://www.facebook.com/',
-        'Twitter': 'https://twitter.com/',
-        'GooglePlus': 'https://plus.google.com/'
-    };
+    let show_local   = document.getElementById("show_local_results").checked;
+    check_local = show_local;
+    var check_county;
+    let show_county   = document.getElementById("show_county_results").checked;
+    check_county = show_county;
+    var check_state;
+    var show_state   = document.getElementById("show_state_results").checked;
+    check_state = show_state;
+    var check_federal;
+    var show_federal   = document.getElementById("show_federal_results").checked;
+    check_federal = show_federal;
 
 
-    // console.log(rawResponse);
-    console.log(response);
+
     let ol = document.querySelector('#body');
     while (ol.firstChild)
     {
         ol.removeChild(ol.firstChild);
     }
+
+    if(check_federal)
+    {
+        for_loop(response, federal_pattern);
+    }
+    if(check_state)
+    {
+        for_loop(response, state_pattern);
+        for_loop(response, cd_pattern);
+    }
+    if(check_county)
+    {
+        for_loop(response, county_pattern);
+    }
+    if(check_local)
+    {
+        console.log("entered");
+        for_loop(response, local_pattern);
+    }
+    if(!check_federal || !check_county || !check_local || !check_state)
+    {
+        loop_whole(response);
+    }
+
+    let tab = document.getElementById('local-results');
+    let rows = tab.rows;
+
+    for(let i = 0; i < rows.length; i++)
+    {
+        if(rows[i].cells[3].innerHTML == "Republican")
+        {
+            rows[i].style.backgroundColor = "#f16060";
+        }
+        else if(rows[i].cells[3].innerHTML == "Democratic")
+        {
+            rows[i].style.backgroundColor = "rgb(75, 157, 250)  ";
+        }
+        else if(rows[i].cells[3].innerHTML == "Nonpartisan")
+        { 
+            rows[i].style.backgroundColor = "rgb(251, 236, 137)";
+        }
+    }
+   
+}
+
+function loop_whole(response)
+{
     let contest = response["officials"];
     let offices = response["offices"];
-
-
-    
-
-    // console.log(contest);
-    for(let i = 0; i < contest.length; i++)
+    for(let i = 0; i < offices.length; i++)
     {
         let dic = contest[i];
         let dic_off = offices[i];
         let can = dic['name'];
-        // var img = $('<img />', {src : '' + });
+        if(typeof offices == "undefined")
+        {
+            break;
+        }
         let pic = dic['photoUrl'];
         let urls = dic['urls'];
-        // let emails = dic['emails'];
-
-        if (typeof dic.channels !== 'undefined'){
-            var channels = [];
-            $.each(dic.channels, function(i, channel){
-                if (channel.type != 'GooglePlus' && channel.type != 'YouTube') {
-                    channel['icon'] = social_icon_lookup[channel.type];
-                    channel['link'] = social_link_lookup[channel.type] + channel['id'];
-                    channels.push(channel);
-                }
-            });
-
-        }
-        // console.log(channels);
         if(typeof dic['photoUrl'] == "undefined")
         {
-            // console.log(pic);
             pic = "img/blank-person.jpg";
-            // console.log(pic);
         }
-        // let final_url = url(urls);
-        // console.log(can);
         let undef;
         if('urls' in dic)
         {
@@ -125,60 +155,68 @@ function renderResults(response, rawResponse) {
          undef + '" style="color:white">' + undef +  '</a></th>' + 
          + '</tr>');
     }
-    // console.log("hi");
-    let tab = document.getElementById('local-results');
-    let rows = tab.rows;
-    console.log(rows);
-    for(let i = 0; i < rows.length; i++)
-    {
-        if(rows[i].cells[3].innerHTML == "Republican")
-        {
-            // console.log(rows[i].cells[3].innerHTML);  
-            rows[i].style.backgroundColor = "#f16060";
-        }
-        else if(rows[i].cells[3].innerHTML == "Democratic")
-        {
-            // console.log(rows[i].cells[4].innerHTML);  
-            rows[i].style.backgroundColor = "rgb(75, 157, 250)  ";
-        }
-        else if(rows[i].cells[3].innerHTML == "Nonpartisan")
-        {
-            // console.log(rows[i].cells[4].innerHTML);  
-            rows[i].style.backgroundColor = "rgb(251, 236, 137)";
-        }
-    }
-   
 }
 
+function for_loop(response, pattern)
+{
+    let contest = response["officials"];
+    let offices = response["offices"];
+    for(let i = 0; i < offices.length; i++)
+    {
+        let dic = contest[i];
+        let dic_off = offices[i];
+        let can = dic['name'];
+        if(typeof offices == "undefined")
+        {
+            break;
+        }
 
-
-    
-// function url(urls)
-// {
-//     let ret = '';
-//     urls.forEach(element => {
-//         ret = ret + element;
-//     });
-//     return ret;
-// }
-
-// function links(link)
-// {
-//     if(link.length == 0)
-//     {
-//         return;
-//     }
-//     let ret = '';
-//     for(let i = 0; i < link.size; i++)
-//     {
-//         console.log(link[i]);
-//         ret = ret + link[i];
-//     }
-//     console.log(ret);
-//     console.log("hi");
-//     return ret;
-// }
-
+        if(!offices[i]["divisionId"].match(pattern))
+        {
+            continue;
+        }
+        let pic = dic['photoUrl'];
+        let urls = dic['urls'];
+        if(typeof dic['photoUrl'] == "undefined")
+        {
+            pic = "img/blank-person.jpg";
+        }
+        let undef;
+        if('urls' in dic)
+        {
+            if(typeof urls[0] != "undefined")
+            {
+                undef = "Independent";
+                
+            }
+            if(urls[0] == "unknown")
+            {
+                undef= "Independent";
+            }
+            undef = urls[0];
+        }
+        let def_name = "unknown";
+        if(typeof dic_off != "undefined")
+        {
+            if(typeof dic_off['name'] != "undefined")
+            {
+                def_name = "Independent";
+                
+            }
+            if(dic_off['name'] == "unknown")
+            {
+                def_name= "unknown";
+            }
+            def_name = dic_off['name'];
+        }
+        $('#body').append(
+            '<tr><th>' + can + '</th><th><img src="' + pic 
+        + '" </th><th>'
+         + def_name + '</th><th>' + dic["party"] + '</th><th><a href="' +
+         undef + '" style="color:white">' + undef +  '</a></th>' + 
+         + '</tr>');
+    }
+}
 /**
 * Auto-complete for search bar
 */
@@ -186,12 +224,23 @@ $(function () {
     var autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'), {types: ['address']});
 })
    
-    
-    $('button').click(function (event) {
+var clickk = false;
+$('button').click(function (event) {
+    gapi.client.setApiKey('AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw');
+    event.preventDefault();
+    // console.log("'"+$('#address').val()+"'");
+    clickk = true;
+    lookup("'"+$('#address').val()+"'", renderResults);
+    // lookup('500 Westlake Avenue North, Seattle, WA, USA', renderResults);
+});
+
+var addy = document.getElementById('address');
+addy.addEventListener('keypress', function(event) {
+    if (event.keyCode == 13 && !clickk) 
+    {
         gapi.client.setApiKey('AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw');
         event.preventDefault();
         console.log("'"+$('#address').val()+"'");
         lookup("'"+$('#address').val()+"'", renderResults);
-        // lookup('500 Westlake Avenue North, Seattle, WA, USA', renderResults);
-    });
-
+    }
+});
