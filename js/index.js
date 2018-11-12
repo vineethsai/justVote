@@ -75,7 +75,7 @@ function renderResults(response, rawResponse) {
         console.log("entered");
         for_loop(response, local_pattern);
     }
-    if(!check_federal || !check_county || !check_local || !check_state)
+    if(!check_federal && !check_county && !check_local && !check_state)
     {
         loop_whole(response);
     }
