@@ -245,6 +245,6 @@ addy.addEventListener('keypress', function(event) {
     }
 });
 
-jQuery(document).ready(function($) {
-    initMap();
-});
+// jQuery(document).ready(function($) {
+//     initMap();
+// });
