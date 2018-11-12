@@ -226,7 +226,7 @@ $(function () {
    
 var clickk = false;
 $('button').click(function (event) {
-    gapi.client.setApiKey('AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw');
+    gapi.client.setApiKey('AIzaSyBsP_HExLE7-6QINDS-5gGHNFyno8FW9F8');
     event.preventDefault();
     // console.log("'"+$('#address').val()+"'");
     clickk = true;
@@ -238,13 +238,9 @@ var addy = document.getElementById('address');
 addy.addEventListener('keypress', function(event) {
     if (event.keyCode == 13 && !clickk) 
     {
-        gapi.client.setApiKey('AIzaSyD7zJVtw_WpAd6gEV2rlPpjFhEykWV8zkw');
+        gapi.client.setApiKey('AIzaSyBsP_HExLE7-6QINDS-5gGHNFyno8FW9F8');
         event.preventDefault();
         console.log("'"+$('#address').val()+"'");
         lookup("'"+$('#address').val()+"'", renderResults);
     }
 });
-
-// jQuery(document).ready(function($) {
-//     initMap();
-// });

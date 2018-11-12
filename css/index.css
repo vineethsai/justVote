@@ -206,7 +206,10 @@ tbody tr:hover
 {
     background-color: #2262AD;
 } */
-
+.btn
+{
+	padding: 11px;
+}
 footer p
 {
 	position:fixed;
@@ -223,10 +226,7 @@ footer p
 	letter-spacing: 1px;
 }
 
-#submitbtnnn
-{
-	display: none;
-}
+
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
