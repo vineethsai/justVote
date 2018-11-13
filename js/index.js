@@ -49,7 +49,15 @@ function renderResults(response, rawResponse) {
     var show_federal   = document.getElementById("show_federal_results").checked;
     check_federal = show_federal;
 
+    let oll = document.querySelector('#head');
+    while (oll.firstChild)
+    {
+        oll.removeChild(oll.firstChild);
+    }
 
+    $("#head").append(
+        "<tr><th>Official</th><th>Photo</th><th>Office</th><th>Party</th><th class='b' >Website</th></tr>"
+    );
 
     let ol = document.querySelector('#body');
     while (ol.firstChild)
@@ -72,7 +80,7 @@ function renderResults(response, rawResponse) {
     }
     if(check_local)
     {
-        console.log("entered");
+        // console.log("entered");
         for_loop(response, local_pattern);
     }
     if(!check_federal && !check_county && !check_local && !check_state)
@@ -87,15 +95,15 @@ function renderResults(response, rawResponse) {
     {
         if(rows[i].cells[3].innerHTML == "Republican")
         {
-            rows[i].style.backgroundColor = "#f16060";
+            rows[i].style.backgroundColor = "#f5a095";
         }
         else if(rows[i].cells[3].innerHTML == "Democratic")
         {
-            rows[i].style.backgroundColor = "rgb(75, 157, 250)  ";
+            rows[i].style.backgroundColor = "#75bdf5";
         }
         else if(rows[i].cells[3].innerHTML == "Nonpartisan")
         { 
-            rows[i].style.backgroundColor = "rgb(251, 236, 137)";
+            rows[i].style.backgroundColor = "#f5e395";
         }
     }
    
@@ -151,7 +159,7 @@ function loop_whole(response)
         $('#body').append(
             '<tr><th>' + can + '</th><th><img src="' + pic 
         + '" </th><th>'
-         + def_name + '</th><th>' + dic["party"] + '</th><th><a href="' +
+            + def_name + '</th><th>' + dic["party"] + '</th><th class="b"><a href="' +
          undef + '" style="color:white">' + undef +  '</a></th>' + 
          + '</tr>');
     }
@@ -212,7 +220,7 @@ function for_loop(response, pattern)
         $('#body').append(
             '<tr><th>' + can + '</th><th><img src="' + pic 
         + '" </th><th>'
-         + def_name + '</th><th>' + dic["party"] + '</th><th><a href="' +
+         + def_name + '</th><th>' + dic["party"] + '</th><th class="b" ><a href="' +
          undef + '" style="color:white">' + undef +  '</a></th>' + 
          + '</tr>');
     }

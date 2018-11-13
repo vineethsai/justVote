@@ -39,31 +39,6 @@ header {
 
 }
 
-/* #logo{
-
-	margin: 20px;
-	float: left;
-	width: 300px;
-	height: 40px;
-	background: url(../img/logo.png) no-repeat center;
-    display: block;
-    font-size: 250%;
-    padding: 10px;
-
-} */
-
-/* h1
-{
-    padding: 40px;
-    color: #FFDC00;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 90px;
-    font-weight: 800;
-    letter-spacing: -3px;
-    line-height: 1;
-    text-shadow: #EDEDED 3px 2px 0;
-} */
 nav {
 
 	float: right;
@@ -160,12 +135,19 @@ table
 	width: 100%; 
 	/* bottom: 1000px; */
 	border-collapse: collapse; 
+	margin-left: auto;
+	margin-right: auto;
+	padding: 25px 25px;
 }
-thead
+/* thead
 {
 	background-color: #ccc;
-}
+} */
 
+.b
+{
+	max-width: 200px;
+}
 th
 { 
 	/* background: #333;  */
@@ -178,13 +160,14 @@ td, th
 	padding: 6px;
 	border: 1px solid #ccc; 
 	text-align: left; 
+	word-wrap:break-word;
 }
 
 table thead tr th
 {
     height: 2rem;
     /* text-align: left; */
-    color: #1db954;
+    /* color: #1db954; */
 	/* background-color: #d3d3d3; */
 	text-shadow: 1px 1px 0 #000;
 }
@@ -194,6 +177,7 @@ img
 	background-image: url('../img/blank-person.jpg');
     width: 100px;
 	height: 100px;
+	background-color: #75bdf5;
 	
 }
 
@@ -298,7 +282,7 @@ only screen and (max-width: 760px),
 		padding-left: 50%; 
 	}
 	
-	td:before { 
+	td::before{ 
 		/* Now like a table header */
 		position: absolute;
 		/* Top/left values mimic padding */
@@ -308,11 +292,14 @@ only screen and (max-width: 760px),
 		padding-right: 10px; 
 		white-space: nowrap;
 	}
-
+	.b
+	{
+		max-width: none;
+	}
 	/*
 	Label the data
 	*/
-	td:nth-of-type(1):before { content: "Official"; }
+	td:nth-of-type(1)::before { content: "Official"; }
 	td:nth-of-type(2):before { content: "Photo"; }
 	td:nth-of-type(3):before { content: "Office"; }
 	td:nth-of-type(4):before { content: "Party"; }
